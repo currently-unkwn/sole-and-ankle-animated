@@ -133,8 +133,6 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
-
-  transform: rotate(10deg);
 `;
 
 const SaleFlag = styled(Flag)`

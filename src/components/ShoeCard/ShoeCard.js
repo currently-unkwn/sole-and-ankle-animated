@@ -35,12 +35,10 @@ const ShoeCard = ({
     <Link href={`/shoe/${slug}`}>
       <Wrapper>
         <ImageWrapper>
-          <ImageContainer>
-            <Image alt="" src={imageSrc} />
-          </ImageContainer>
-          {variant === "on-sale" && <SaleFlag>Sale</SaleFlag>}
-          {variant === "new-release" && <NewFlag>Just released!</NewFlag>}
+          <Image alt="" src={imageSrc} />
         </ImageWrapper>
+        {variant === "on-sale" && <SaleFlag>Sale</SaleFlag>}
+        {variant === "new-release" && <NewFlag>Just released!</NewFlag>}
         <Spacer size={12} />
         <Row>
           <Name>{name}</Name>
@@ -71,32 +69,30 @@ const Link = styled.a`
   color: inherit;
 `;
 
-const Wrapper = styled.article``;
+const Wrapper = styled.article`
+  position: relative;
+`;
 
 const ImageWrapper = styled.div`
-  position: relative;
+  border-radius: 16px 16px 4px 4px;
+  overflow: hidden;
 `;
 
 const Image = styled.img`
   display: block;
   object-fit: cover;
   width: 100%;
-  border-radius: 16px 16px 4px 4px;
-`;
 
-const ImageContainer = styled.div`
-  overflow: hidden;
-  border-radius: 16px 16px 4px 4px;
+  transition: transform 500ms;
+  transform-origin: 50% 75%;
 
-  & ${Image} {
-    transition: transform 450ms;
-    transform-origin: 50% 75%;
-  }
+  will-change: transform;
 
-  &:hover ${Image} {
-    transform: scale(1.1);
-    border: 1px solid red;
-    transition: transform 200ms;
+  @media (hover: hover) and (prefers-reduced-motion: no-preference) {
+    ${Link}:hover &, ${Link}:focus & {
+      transform: scale(1.1);
+      transition: transform 200ms;
+    }
   }
 `;
 
@@ -137,6 +133,8 @@ const Flag = styled.div`
   font-weight: ${WEIGHTS.bold};
   color: var(--color-white);
   border-radius: 2px;
+
+  transform: rotate(10deg);
 `;
 
 const SaleFlag = styled(Flag)`

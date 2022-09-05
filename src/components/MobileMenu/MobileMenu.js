@@ -1,13 +1,14 @@
 /* eslint-disable no-unused-vars */
-import React from 'react';
-import styled from 'styled-components/macro';
-import { DialogOverlay, DialogContent } from '@reach/dialog';
+import React from "react";
+import styled from "styled-components/macro";
+import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { QUERIES, WEIGHTS } from '../../constants';
+import { WEIGHTS } from "../../constants";
 
-import UnstyledButton from '../UnstyledButton';
-import Icon from '../Icon';
-import VisuallyHidden from '../VisuallyHidden';
+import UnstyledButton from "../UnstyledButton";
+import Icon from "../Icon";
+import VisuallyHidden from "../VisuallyHidden";
+import NavLink from "../NavLink";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
@@ -67,18 +68,6 @@ const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 16px;
-`;
-
-const NavLink = styled.a`
-  color: var(--color-gray-900);
-  font-weight: ${WEIGHTS.medium};
-  text-decoration: none;
-  font-size: 1.125rem;
-  text-transform: uppercase;
-
-  &:first-of-type {
-    color: var(--color-secondary);
-  }
 `;
 
 const Filler = styled.div`

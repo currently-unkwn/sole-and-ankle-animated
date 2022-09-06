@@ -3,8 +3,6 @@ import React from "react";
 import styled, { keyframes } from "styled-components/macro";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 
-import { WEIGHTS } from "../../constants";
-
 import UnstyledButton from "../UnstyledButton";
 import Icon from "../Icon";
 import VisuallyHidden from "../VisuallyHidden";
@@ -12,28 +10,61 @@ import NavLink from "../NavLink";
 
 const MobileMenu = ({ isOpen, onDismiss }) => {
   return (
-    <Overlay isOpen={isOpen} onDismiss={onDismiss}>
+    <Wrapper isOpen={isOpen} onDismiss={onDismiss}>
+      <Backdrop />
       <Content aria-label="Menu">
-        <CloseButton onClick={onDismiss}>
-          <Icon id="close" />
-          <VisuallyHidden>Dismiss menu</VisuallyHidden>
-        </CloseButton>
-        <Filler />
-        <Nav>
-          <NavLink href="/sale">Sale</NavLink>
-          <NavLink href="/new">New&nbsp;Releases</NavLink>
-          <NavLink href="/men">Men</NavLink>
-          <NavLink href="/women">Women</NavLink>
-          <NavLink href="/kids">Kids</NavLink>
-          <NavLink href="/collections">Collections</NavLink>
-        </Nav>
-        <Footer>
-          <SubLink href="/terms">Terms and Conditions</SubLink>
-          <SubLink href="/privacy">Privacy Policy</SubLink>
-          <SubLink href="/contact">Contact Us</SubLink>
-        </Footer>
+        <InnerWrapper>
+          <CloseButton onClick={onDismiss}>
+            <Icon id="close" />
+            <VisuallyHidden>Dismiss menu</VisuallyHidden>
+          </CloseButton>
+          <Filler />
+          <Nav>
+            <NavLinkAnimated
+              href="/sale"
+              style={{ "--animation-delay": 500 + "ms" }}
+            >
+              Sale
+            </NavLinkAnimated>
+            <NavLinkAnimated
+              href="/new"
+              style={{ "--animation-delay": 550 + "ms" }}
+            >
+              New&nbsp;Releases
+            </NavLinkAnimated>
+            <NavLinkAnimated
+              href="/men"
+              style={{ "--animation-delay": 600 + "ms" }}
+            >
+              Men
+            </NavLinkAnimated>
+            <NavLinkAnimated
+              href="/women"
+              style={{ "--animation-delay": 650 + "ms" }}
+            >
+              Women
+            </NavLinkAnimated>
+            <NavLinkAnimated
+              href="/kids"
+              style={{ "--animation-delay": 700 + "ms" }}
+            >
+              Kids
+            </NavLinkAnimated>
+            <NavLinkAnimated
+              href="/collections"
+              style={{ "--animation-delay": 750 + "ms" }}
+            >
+              Collections
+            </NavLinkAnimated>
+          </Nav>
+          <Footer>
+            <SubLink href="/terms">Terms and Conditions</SubLink>
+            <SubLink href="/privacy">Privacy Policy</SubLink>
+            <SubLink href="/contact">Contact Us</SubLink>
+          </Footer>
+        </InnerWrapper>
       </Content>
-    </Overlay>
+    </Wrapper>
   );
 };
 
@@ -57,47 +88,74 @@ const slideIn = keyframes`
   }
 `;
 
-const Overlay = styled(DialogOverlay)`
+const rotateIn = keyframes`
+  from{
+    transform: rotateY(180deg);
+  }
+  to{transform: rotateY(0deg);}
+`;
+
+const Wrapper = styled(DialogOverlay)`
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
   bottom: 0;
-  background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+`;
+
+const Backdrop = styled.div`
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: var(--color-backdrop);
 
   animation: ${fadeIn} 500ms;
 `;
 
 const Content = styled(DialogContent)`
+  --overfill: 16px;
+  position: relative;
   background: white;
-  width: 300px;
+  width: calc(300px + var(--overfill));
+  margin-right: calc(var(--overfill) * -1);
   height: 100%;
   padding: 24px 32px;
+
+  @media (prefers-reduced-motion: no-preference) {
+    animation: ${slideIn} 400ms both cubic-bezier(0, 0.6, 0.66, 1.07);
+    animation-delay: 200ms;
+  }
+`;
+
+const InnerWrapper = styled.div`
+  height: 100%;
   display: flex;
   flex-direction: column;
 
-  animation: ${slideIn} 400ms ease-in-out;
+  /* animation: ${fadeIn} 600ms both;
+  animation-delay: 400ms; */
 `;
 
 const CloseButton = styled(UnstyledButton)`
   position: absolute;
   top: 10px;
-  right: 0;
+  right: var(--overfill);
   padding: 16px;
-
-  animation: ${fadeIn} 400ms backwards;
-  animation-delay: 400ms;
 `;
 
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 16px;
+`;
 
-  animation: ${fadeIn} 400ms backwards;
-  animation-delay: 400ms;
+const NavLinkAnimated = styled(NavLink)`
+  animation: ${fadeIn} 400ms both, ${slideIn} 400ms both;
+  animation-delay: var(--animation-delay);
 `;
 
 const Filler = styled.div`
@@ -110,9 +168,6 @@ const Footer = styled.footer`
   flex-direction: column;
   gap: 14px;
   justify-content: flex-end;
-
-  animation: ${fadeIn} 400ms backwards;
-  animation-delay: 400ms;
 `;
 
 const SubLink = styled.a`

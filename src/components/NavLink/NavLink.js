@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { WEIGHTS } from "../../constants";
+import { QUERIES, WEIGHTS } from "../../constants";
 
 const NavLink = ({ children, ...delegated }) => {
   return (
@@ -22,6 +22,7 @@ const Wrapper = styled.a`
 
   /* For hover links */
   overflow: hidden;
+
   &:first-of-type {
     color: var(--color-secondary);
   }

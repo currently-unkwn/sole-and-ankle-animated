@@ -1,6 +1,6 @@
 /* eslint-disable no-unused-vars */
 import React from "react";
-import styled from "styled-components/macro";
+import styled, { keyframes } from "styled-components/macro";
 import { DialogOverlay, DialogContent } from "@reach/dialog";
 
 import { WEIGHTS } from "../../constants";
@@ -37,6 +37,26 @@ const MobileMenu = ({ isOpen, onDismiss }) => {
   );
 };
 
+const fadeIn = keyframes`
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+`;
+
+const slideIn = keyframes`
+  from {
+    transform: translateX(100%);
+  }
+
+  to {
+    transform: translateX(0%);
+  }
+`;
+
 const Overlay = styled(DialogOverlay)`
   position: fixed;
   top: 0;
@@ -46,6 +66,8 @@ const Overlay = styled(DialogOverlay)`
   background: var(--color-backdrop);
   display: flex;
   justify-content: flex-end;
+
+  animation: ${fadeIn} 500ms;
 `;
 
 const Content = styled(DialogContent)`
@@ -55,6 +77,8 @@ const Content = styled(DialogContent)`
   padding: 24px 32px;
   display: flex;
   flex-direction: column;
+
+  animation: ${slideIn} 400ms ease-in-out;
 `;
 
 const CloseButton = styled(UnstyledButton)`
@@ -62,23 +86,33 @@ const CloseButton = styled(UnstyledButton)`
   top: 10px;
   right: 0;
   padding: 16px;
+
+  animation: ${fadeIn} 400ms backwards;
+  animation-delay: 400ms;
 `;
 
 const Nav = styled.nav`
   display: flex;
   flex-direction: column;
   gap: 16px;
+
+  animation: ${fadeIn} 400ms backwards;
+  animation-delay: 400ms;
 `;
 
 const Filler = styled.div`
   flex: 1;
 `;
+
 const Footer = styled.footer`
   flex: 1;
   display: flex;
   flex-direction: column;
   gap: 14px;
   justify-content: flex-end;
+
+  animation: ${fadeIn} 400ms backwards;
+  animation-delay: 400ms;
 `;
 
 const SubLink = styled.a`
